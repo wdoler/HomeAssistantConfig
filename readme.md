@@ -1,4 +1,4 @@
-##HomeAssistant config
+## Home-Assistant Config
 
 [![Build Status](https://travis-ci.org/wdoler/HomeAssistantConfig.svg?branch=master)](https://travis-ci.org/wdoler/HomeAssistantConfig)
 
