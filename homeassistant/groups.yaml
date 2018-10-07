@@ -1,0 +1,102 @@
+Time:
+- sensor.date
+- sensor.time
+Lights:
+- switch.living_room_lamp
+- switch.bedroom_lamp
+- switch.porch_light
+- switch.office_light
+Chromecasts:
+- media_player.living_room
+- media_player.bedroom
+Weather:
+- sensor.dark_sky_temperature
+- sensor.dark_sky_precip_probability
+- sensor.dark_sky_cloud_coverage
+- sensor.dark_sky_summary
+- sensor.dark_sky_humidity
+- sensor.dark_sky_pressure
+- sensor.dark_sky_wind_speed
+- sun.sun
+Tracking:
+- device_tracker.a8be275e1c9a
+- device_tracker.24da9b1b62f2
+Switches:
+- sensor.mqtt_sensor
+Bedroom Power Usage:
+- sensor.bedroom_lamp_amps
+- sensor.bedroom_lamp_volts
+- sensor.bedroom_lamp_watts
+- sensor.bedroom_lamp_total_kw
+Living Room Power Usage:
+- sensor.living_room_lamp_amps
+- sensor.living_room_lamp_volts
+- sensor.living_room_lamp_watts
+- sensor.living_room_lamp_total_kw
+#Printer Power Usage:
+#- sensor.printer_amps
+#- sensor.printer_volts
+#- sensor.printer_watts
+#- sensor.printer_kw
+
+Home Humidity:
+- sensor.home_humidity
+
+Home Temps:
+- sensor.guest_bedroom_temperature
+- sensor.home_temperature
+- sensor.living_room_temperature
+- sensor.master_bedroom_temperature
+
+Home Occupancy:
+- binary_sensor.guest_bedroom_occupancy
+- binary_sensor.home_occupancy
+- binary_sensor.living_room_occupancy
+- binary_sensor.master_bedroom_occupancy
+
+Ecobee Graphs:
+- history_graph.ecobee_presence
+- history_graph.home_temps
+
+#Pi Hole:
+#- sensor.pihole_ads_blocked_today
+#- sensor.pihole_ads_percentage_blocked_today
+#- sensor.pihole_dns_queries_cached
+#- sensor.pihole_dns_queries_forwarded
+#- sensor.pihole_dns_queries_today
+#- sensor.pihole_dns_unique_clients
+#- sensor.pihole_dns_unique_domains
+#- sensor.pihole_domains_blocked
+
+Ring Doorbell:
+- sensor.ring_front_door_battery
+- sensor.ring_front_door_last_activity
+- sensor.ring_front_door_last_ding
+- sensor.ring_front_door_last_motion
+- sensor.ring_front_door_volume
+- sensor.ring_front_door_wifi_signal_category
+- sensor.ring_front_door_wifi_signal_strength
+
+Ring View:
+  view: yes
+  name: Ring
+  entities:
+   - group.ring_doorbell
+   - camera.front_door
+
+Ecobee View:
+  view: yes
+  name: Ecobee
+  entities:
+   - group.home_humidity
+   - group.home_temps
+   - climate.home
+   - group.ecobee_graphs
+
+Data View:
+  view: yes
+  name: Data
+  entities:
+   - history_graph.lights_power_consumption
+   - history_graph.voltage_graph
+   - group.ecobee_graphs

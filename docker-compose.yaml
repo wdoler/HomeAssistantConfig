@@ -1,0 +1,142 @@
+version: '2.1'
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:5.1.0
+    user: "472"
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/wdoler/Documents/docker/grafana:/etc/grafana
+      - /home/wdoler/Documents/docker/grafana:/var/lib/grafana
+    networks:
+      app_net:
+        ipv4_address: 172.18.0.4
+    restart: on-failure
+    depends_on:
+      influxdb:
+        condition: service_healthy
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    ports:
+      - 8086:8086
+    volumes:
+      - /home/wdoler/Documents/docker/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - /home/wdoler/Documents/docker/influxdb:/var/lib/influxdb
+    networks:
+      app_net:
+        ipv4_address: 172.18.0.3
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-sI", "http://127.0.0.1:8086/ping"]
+      interval: 30s
+      timeout: 1s
+      retries: 24
+
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:latest
+    network_mode: host
+    volumes:
+      - /home/wdoler/Documents/docker/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+#      - /etc/letsencrypt:/etc/letsencrypt:ro
+    restart: on-failure
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8123"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+
+#  mosquitto:
+#    container_name: mosquitto
+#    image: robotany/mosquitto-rpi
+#    user: "1000:1000"
+#    ports:
+#      - 1883:1883
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - ~/Documents/docker/mosquitto:/mosquitto/config:ro
+#      - ~/Documents/docker/mosquitto:/mosquitto/data
+#    restart: on-failure
+
+#  node-red:
+#    container_name: node-red
+#    image: nodered/node-red-docker:latest
+#    ports:
+#      - 1880:1880
+#    volumes:
+#      - ~/Documents/docker/node-red:/data
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro
+#    restart: on-failure
+#    depends_on:
+#      homeassistant:
+#        condition: service_healthy
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://127.0.0.1:1880"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - /home/wdoler/Documents/docker/portainer:/data:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      app_net:
+        ipv4_address: 172.18.0.2
+    restart: on-failure
+
+#  organizr:
+#    container_name: organizr
+#    image: lsioarmhf/organizr:latest
+#    ports:
+#      - 80:80
+#      - 443:443
+#    volumes:
+#      - /home/wdoler/Documents/docker/organizr:/config:rw
+#      - /etc/letsencrypt:/etc/letsencrypt:ro
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.5
+#    environment:
+#      - PGID=1000
+#      - PUID=1000
+#    restart: on-failure
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://127.0.0.1"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+
+#  dockermon:
+#    container_name: dockermon
+#    image: tribunex/ha-dockermon-pi
+#    ports:
+#      - 8126:8126
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ~/Documents/docker/dockermon:/config
+#    restart: on-failure
+
+networks:
+  app_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.0.0/24
+        gateway: 172.18.0.1
+

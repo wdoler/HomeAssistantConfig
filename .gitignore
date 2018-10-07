@@ -1,0 +1,10 @@
+#ignore everything
+*/*
+
+#except
+!homeassistant/*yaml
+!influxdb/*conf
+
+# NEVER COMMIT
+homeassistant/secrets.yaml
+homeassistant/known_devices.yaml

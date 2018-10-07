@@ -1,0 +1,233 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret my_latitude
+  longitude: !secret my_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 165
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+#  ssl_certificate: !secret sec_ssl_cert
+#  ssl_key: !secret sec_ssl_key
+#  base_url: !secret sec_base_url
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+   - google_cast
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Ring Doorbell
+ring:
+  username: !secret ring_username
+  password: !secret ring_password
+
+nest:
+  client_id: !secret nest_clientid
+  client_secret: !secret nest_clientsecret
+
+# Weather prediction
+sensor:
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    monitored_conditions:
+      - summary
+      - cloud_cover
+      - precip_probability
+      - wind_speed
+      - humidity
+      - pressure
+      - temperature
+  - platform: template
+    sensors:
+      bedroom_lamp_amps:
+        friendly_name: 'Current'
+        value_template: '{{ states.switch.bedroom_lamp.attributes["current_a"] | replace(" A", "") | float }}'
+        unit_of_measurement: 'A'
+      bedroom_lamp_watts:
+        friendly_name: 'Power'
+        value_template: '{{ states.switch.bedroom_lamp.attributes["current_power_w"] | replace(" W", "") | float }}'
+        unit_of_measurement: 'W'
+      bedroom_lamp_total_kw:
+        friendly_name: 'Total Power'
+        value_template: '{{ states.switch.bedroom_lamp.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kW'
+      bedroom_lamp_volts:
+        friendly_name: 'Voltage'
+        value_template: '{{ states.switch.bedroom_lamp.attributes["voltage"] | replace(" V", "") | float }}'
+        unit_of_measurement: 'V'
+      living_room_lamp_watts:
+        friendly_name: 'Power'
+        value_template: '{{ states.switch.living_room_lamp.attributes["current_power_w"] | replace(" W", "") | float }}'
+        unit_of_measurement: 'W'
+      living_room_lamp_total_kw:
+        friendly_name: 'Total Power'
+        value_template: '{{ states.switch.living_room_lamp.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kW'
+      living_room_lamp_volts:
+        friendly_name: 'Voltage'
+        value_template: '{{ states.switch.living_room_lamp.attributes["voltage"] | replace(" V", "") | float }}'
+        unit_of_measurement: 'V'
+      living_room_lamp_amps:
+        friendly_name: 'Current'
+        value_template: '{{ states.switch.living_room_lamp.attributes["current_a"] | replace(" A", "") | float }}'
+        unit_of_measurement: 'A'
+#      printer_amps:
+#        friendly_name: 'Current'
+#        value_template: '{{ states.switch.prusa_printer.attributes["current"] | replace(" A", "") | float }}'
+#        unit_of_measurement: 'A'
+#      printer_watts:
+#        friendly_name: 'Power'
+#        value_template: '{{ states.switch.prusa_printer.attributes["current_consumption"] | replace(" W", "") | float }}'
+#        unit_of_measurement: 'W'
+#      printer_kw:
+#        friendly_name: 'Daily Power'
+#        value_template: '{{ states.switch.prusa_printer.attributes["total_consumption"] | replace(" kW", "") | float }}'
+#        unit_of_measurement: 'kW'
+#      printer_volts:
+#        friendly_name: 'Voltage'
+#        value_template: '{{ states.switch.prusa_printer.attributes["voltage"] | replace(" V", "") | float}}'
+#        unit_of_measurement: 'V'
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+  - platform: ring
+
+# Text to speech
+tts:
+  - platform: google
+
+#mqtt:
+#  embedded:
+
+#device_tracker:
+#  - platform: tplink
+#    host: 192.168.0.1
+#    username: !secret router_username
+#    password: !secret router_password
+#    consider_home: 180
+#    track_new_devices: yes
+
+switch:
+  - platform: tplink
+    name: Bedroom Lamp
+    host: 192.168.0.100
+#  - platform: tplink
+#    name: Prusa Printer
+#    host: 192.168.0.103
+  - platform: tplink
+    name: Living Room Lamp
+    host: 192.168.0.104
+  - platform: tplink
+    name: Porch Light
+    host: 192.168.0.101
+  - platform: tplink
+    name: Office Light
+    host: 192.168.0.102
+
+ecobee:
+  api_key: !secret ecobee_api_key
+  hold_temp: False
+
+camera:
+  - platform: ring
+
+history_graph:
+  gr1:
+    name: Lights Power Consumption
+    entities:
+      - sensor.bedroom_lamp_watts
+      - sensor.living_room_lamp_watts
+    hours_to_show: 240
+  gr2:
+    name: Voltage Graph
+    entities:
+      - sensor.bedroom_lamp_volts
+      - sensor.living_room_lamp_volts
+    hours_to_show: 240
+  gr3:
+    name: Home Temps
+    entities:
+     - group.home_occupancy
+     - sensor.guest_bedroom_temperature
+     - sensor.home_temperature
+     - sensor.living_room_temperature
+     - sensor.master_bedroom_temperature
+    hours_to_show: 240
+  gr4:
+    name: Ecobee Presence
+    entities:
+     - binary_sensor.guest_bedroom_occupancy
+     - binary_sensor.home_occupancy
+     - binary_sensor.living_room_occupancy
+     - binary_sensor.master_bedroom_occupancy
+    hours_to_show: 240
+
+#duckdns:
+#  domain: wdoler
+#  access_token: f2b79747-7963-48c3-8c2d-7d24a41b459f
+
+influxdb:
+  host: 172.18.0.3
+  port: 8086
+  database: homeassistant
+  default_measurement: state
+#  exclude:
+#    entities:
+#     - sensor.dark_sky_temperature
+  include:
+    domains:
+     - sensor
+     - binary_sensor
+     - climate
+#    entities:
+#     - sensor.dark_sky_temperature
+#     - sensor.guest_bedroom_temperature
+#     - sensor.home_temperature
+#     - sensor.living_room_temperature
+#     - sensor.master_bedroom_temperature
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
