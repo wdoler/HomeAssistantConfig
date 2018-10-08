@@ -58,16 +58,6 @@ Ecobee Graphs:
 - history_graph.ecobee_presence
 - history_graph.home_temps
 
-#Pi Hole:
-#- sensor.pihole_ads_blocked_today
-#- sensor.pihole_ads_percentage_blocked_today
-#- sensor.pihole_dns_queries_cached
-#- sensor.pihole_dns_queries_forwarded
-#- sensor.pihole_dns_queries_today
-#- sensor.pihole_dns_unique_clients
-#- sensor.pihole_dns_unique_domains
-#- sensor.pihole_domains_blocked
-
 Ring Doorbell:
 - sensor.ring_front_door_battery
 - sensor.ring_front_door_last_activity
@@ -76,6 +66,26 @@ Ring Doorbell:
 - sensor.ring_front_door_volume
 - sensor.ring_front_door_wifi_signal_category
 - sensor.ring_front_door_wifi_signal_strength
+
+Nest Protect:
+- binary_sensor.living_room_nest_protect_online
+- sensor.living_room_nest_protect_battery_health
+- sensor.living_room_nest_protect_co_status
+- sensor.living_room_nest_protect_color_status
+- sensor.living_room_nest_protect_smoke_status
+- sensor.home_eta
+- binary_sensor.home_away
+
+#default_view:
+#  view: yes
+#  entities:
+#   - camera.front_door
+#   - climate.home
+#   - group.all_switches
+#   - group.weather
+#   - group.lights
+#   - group.home_temps
+#   - group.ecobee_presence
 
 Ring View:
   view: yes

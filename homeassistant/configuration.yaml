@@ -139,13 +139,13 @@ tts:
 #mqtt:
 #  embedded:
 
-#device_tracker:
-#  - platform: tplink
-#    host: 192.168.0.1
-#    username: !secret router_username
-#    password: !secret router_password
-#    consider_home: 180
-#    track_new_devices: yes
+device_tracker:
+  - platform: tplink
+    host: 192.168.0.1
+    username: !secret router_username
+    password: !secret router_password
+    consider_home: 180
+    track_new_devices: yes
 
 switch:
   - platform: tplink
@@ -202,10 +202,6 @@ history_graph:
      - binary_sensor.master_bedroom_occupancy
     hours_to_show: 240
 
-#duckdns:
-#  domain: wdoler
-#  access_token: f2b79747-7963-48c3-8c2d-7d24a41b459f
-
 influxdb:
   host: 172.18.0.3
   port: 8086
@@ -225,8 +221,9 @@ influxdb:
 #     - sensor.home_temperature
 #     - sensor.living_room_temperature
 #     - sensor.master_bedroom_temperature
+
 # Cloud
-cloud:
+#cloud:
 
 group: !include groups.yaml
 automation: !include automations.yaml
