@@ -97,27 +97,27 @@ services:
         ipv4_address: 172.18.0.2
     restart: on-failure
 
-#  organizr:
-#    container_name: organizr
-#    image: lsioarmhf/organizr:latest
-#    ports:
-#      - 80:80
-#      - 443:443
-#    volumes:
-#      - /home/wdoler/Documents/docker/organizr:/config:rw
+  organizr:
+    container_name: organizr
+    image: lsiocommunity/organizr:latest
+    ports:
+      - 8899:80
+      - 443:443
+    volumes:
+      - /home/wdoler/Documents/docker/organizr:/config:rw
 #      - /etc/letsencrypt:/etc/letsencrypt:ro
-#    networks:
-#      app_net:
-#        ipv4_address: 172.18.0.5
-#    environment:
-#      - PGID=1000
-#      - PUID=1000
-#    restart: on-failure
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://127.0.0.1"]
-#      interval: 30s
-#      timeout: 10s
-#      retries: 5
+    networks:
+      app_net:
+        ipv4_address: 172.18.0.5
+    environment:
+      - PGID=1000
+      - PUID=1000
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 #  dockermon:
 #    container_name: dockermon
