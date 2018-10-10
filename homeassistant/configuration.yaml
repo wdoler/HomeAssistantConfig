@@ -22,9 +22,9 @@ config:
 http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret http_password
-#  ssl_certificate: !secret sec_ssl_cert
-#  ssl_key: !secret sec_ssl_key
-#  base_url: !secret sec_base_url
+  ssl_certificate: !secret sec_ssl_cert
+  ssl_key: !secret sec_ssl_key
+  base_url: !secret sec_base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to

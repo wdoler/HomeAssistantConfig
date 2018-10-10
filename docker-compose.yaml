@@ -42,7 +42,7 @@ services:
     volumes:
       - /home/wdoler/Documents/docker/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-#      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     restart: on-failure
     depends_on:
       influxdb:
