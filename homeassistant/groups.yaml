@@ -1,14 +1,17 @@
 Time:
 - sensor.date
 - sensor.time
+
 Lights:
 - switch.living_room_lamp
 - switch.bedroom_lamp
 - switch.porch_light
 - switch.office_light
+
 Chromecasts:
 - media_player.living_room
 - media_player.bedroom
+
 Weather:
 - sensor.dark_sky_temperature
 - sensor.dark_sky_precip_probability
@@ -18,11 +21,14 @@ Weather:
 - sensor.dark_sky_pressure
 - sensor.dark_sky_wind_speed
 - sun.sun
-Tracking:
-- device_tracker.a8be275e1c9a
-- device_tracker.24da9b1b62f2
+
+#Tracking:
+#- device_tracker.a8be275e1c9a
+#- device_tracker.24da9b1b62f2
+
 Switches:
 - sensor.mqtt_sensor
+
 Bedroom Power Usage:
 - sensor.bedroom_lamp_amps
 - sensor.bedroom_lamp_volts

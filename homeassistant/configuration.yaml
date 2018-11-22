@@ -136,33 +136,41 @@ sensor:
 tts:
   - platform: google
 
-#mqtt:
-#  embedded:
+mqtt:
+  broker: 192.168.254.107
+  port: 1883
+#  client_id: home-assistant-1
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
 
-device_tracker:
-  - platform: tplink
-    host: 192.168.0.1
-    username: !secret router_username
-    password: !secret router_password
-    consider_home: 180
-    track_new_devices: yes
+#device_tracker:
+#  - platform: tplink
+#    host: 192.168.0.1
+#    username: !secret router_username
+#    password: !secret router_password
+#    consider_home: 180
+#    track_new_devices: yes
 
 switch:
   - platform: tplink
     name: Bedroom Lamp
-    host: 192.168.0.100
+    host: 192.168.254.100
 #  - platform: tplink
 #    name: Prusa Printer
 #    host: 192.168.0.103
   - platform: tplink
     name: Living Room Lamp
-    host: 192.168.0.104
+    host: 192.168.254.104
   - platform: tplink
     name: Porch Light
-    host: 192.168.0.101
+    host: 192.168.254.101
   - platform: tplink
     name: Office Light
-    host: 192.168.0.102
+    host: 192.168.254.102
 
 ecobee:
   api_key: !secret ecobee_api_key
