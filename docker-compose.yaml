@@ -9,9 +9,9 @@ services:
     volumes:
       - /home/wdoler/Documents/docker/grafana:/etc/grafana
       - /home/wdoler/Documents/docker/grafana:/var/lib/grafana
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.4
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.4
     restart: on-failure
     depends_on:
       influxdb:
@@ -25,9 +25,9 @@ services:
     volumes:
       - /home/wdoler/Documents/docker/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - /home/wdoler/Documents/docker/influxdb:/var/lib/influxdb
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.3
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.3
     restart: on-failure
     healthcheck:
       test: ["CMD", "curl", "-sI", "http://127.0.0.1:8086/ping"]
@@ -41,9 +41,9 @@ services:
 #    network_mode: "host"
     ports:
       - 8123:8123
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.6
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.6
     volumes:
       - /home/wdoler/Documents/docker/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -68,9 +68,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ~/Documents/docker/mosquitto:/mosquitto/config:ro
       - ~/Documents/docker/mosquitto:/mosquitto/data
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.7
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.7
     restart: on-failure
 
 #  node-red:
@@ -100,9 +100,9 @@ services:
     volumes:
       - /home/wdoler/Documents/docker/portainer:/data:rw
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.2
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.2
     restart: on-failure
 
   organizr:
@@ -114,9 +114,9 @@ services:
     volumes:
       - /home/wdoler/Documents/docker/organizr:/config:rw
 #      - /etc/letsencrypt:/etc/letsencrypt:ro
-    networks:
-      app_net:
-        ipv4_address: 172.18.0.5
+#    networks:
+#      app_net:
+#        ipv4_address: 172.18.0.5
     environment:
       - PGID=1000
       - PUID=1000
@@ -126,6 +126,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
+  cncjs:
+    container_name: cncjs
+    image: cncjs/cncjs:latest
+    ports:
+      - 8000:8000
+    privileged: true
 
 #  dockermon:
 #    container_name: dockermon
@@ -137,14 +144,14 @@ services:
 #      - ~/Documents/docker/dockermon:/config
 #    restart: on-failure
 
-networks:
-  app_net:
-    driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "false"
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.18.0.0/24
-        gateway: 172.18.0.1
+#networks:
+#  app_net:
+#    driver: bridge
+#    driver_opts:
+#      com.docker.network.enable_ipv6: "false"
+#    ipam:
+#      driver: default
+#      config:
+#      - subnet: 172.18.0.0/24
+#        gateway: 172.18.0.1
 

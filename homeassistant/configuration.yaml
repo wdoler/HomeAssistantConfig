@@ -211,7 +211,7 @@ history_graph:
     hours_to_show: 240
 
 influxdb:
-  host: 172.18.0.3
+  host: 192.168.254.107
   port: 8086
   database: homeassistant
   default_measurement: state
