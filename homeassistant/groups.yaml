@@ -34,16 +34,18 @@ Bedroom Power Usage:
 - sensor.bedroom_lamp_volts
 - sensor.bedroom_lamp_watts
 - sensor.bedroom_lamp_total_kw
+
 Living Room Power Usage:
 - sensor.living_room_lamp_amps
 - sensor.living_room_lamp_volts
 - sensor.living_room_lamp_watts
 - sensor.living_room_lamp_total_kw
-#Printer Power Usage:
-#- sensor.printer_amps
-#- sensor.printer_volts
-#- sensor.printer_watts
-#- sensor.printer_kw
+
+Printer Power Usage:
+- sensor.printer_amps
+- sensor.printer_volts
+- sensor.printer_watts
+- sensor.printer_kw
 
 Home Humidity:
 - sensor.home_humidity
@@ -116,3 +118,12 @@ Data View:
    - history_graph.lights_power_consumption
    - history_graph.voltage_graph
    - group.ecobee_graphs
+
+Printer View:
+  view: yes
+  name: 3D Printer
+  entities:
+   - history_graph.3d_printer_power
+   - switch.prusa_printer
+   - group.printer_power_usage
+

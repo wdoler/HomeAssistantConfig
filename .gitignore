@@ -9,3 +9,4 @@
 # NEVER COMMIT
 homeassistant/secrets.yaml
 homeassistant/known_devices.yaml
+ggdns.sh

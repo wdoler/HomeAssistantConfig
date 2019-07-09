@@ -64,6 +64,17 @@ nest:
   client_id: !secret nest_clientid
   client_secret: !secret nest_clientsecret
 
+octoprint:
+  host: 192.168.254.107
+  api_key: !secret octoprint_api_key
+  name: Prusa i3 Hephestos
+  number_of_tools: 1
+  sensors:
+    monitored_conditions:
+     - 'Current State'
+     - 'Job Percentage'
+     - 'Temperatures'
+
 # Weather prediction
 sensor:
   - platform: darksky
@@ -110,31 +121,35 @@ sensor:
         friendly_name: 'Current'
         value_template: '{{ states.switch.living_room_lamp.attributes["current_a"] | replace(" A", "") | float }}'
         unit_of_measurement: 'A'
-#      printer_amps:
-#        friendly_name: 'Current'
-#        value_template: '{{ states.switch.prusa_printer.attributes["current"] | replace(" A", "") | float }}'
-#        unit_of_measurement: 'A'
-#      printer_watts:
-#        friendly_name: 'Power'
-#        value_template: '{{ states.switch.prusa_printer.attributes["current_consumption"] | replace(" W", "") | float }}'
-#        unit_of_measurement: 'W'
-#      printer_kw:
-#        friendly_name: 'Daily Power'
-#        value_template: '{{ states.switch.prusa_printer.attributes["total_consumption"] | replace(" kW", "") | float }}'
-#        unit_of_measurement: 'kW'
-#      printer_volts:
-#        friendly_name: 'Voltage'
-#        value_template: '{{ states.switch.prusa_printer.attributes["voltage"] | replace(" V", "") | float}}'
-#        unit_of_measurement: 'V'
+      printer_amps:
+        friendly_name: 'Current'
+        value_template: '{{ states.switch.prusa_printer.attributes["current_a"] | replace(" A", "") | float }}'
+        unit_of_measurement: 'A'
+      printer_watts:
+        friendly_name: 'Power'
+        value_template: '{{ states.switch.prusa_printer.attributes["current_power_w"] | replace(" W", "") | float }}'
+        unit_of_measurement: 'W'
+      printer_kw:
+        friendly_name: 'Daily Power'
+        value_template: '{{ states.switch.prusa_printer.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kW'
+      printer_volts:
+        friendly_name: 'Voltage'
+        value_template: '{{ states.switch.prusa_printer.attributes["voltage"] | replace(" V", "") | float}}'
+        unit_of_measurement: 'V'
   - platform: time_date
     display_options:
       - 'time'
       - 'date'
   - platform: ring
+  - platform: mqtt
+    state_topic: "octoprint/#"
+  - platform: octoprint
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
 
 mqtt:
   broker: 192.168.254.107
@@ -159,9 +174,9 @@ switch:
   - platform: tplink
     name: Bedroom Lamp
     host: 192.168.254.100
-#  - platform: tplink
-#    name: Prusa Printer
-#    host: 192.168.0.103
+  - platform: tplink
+    name: Prusa Printer
+    host: 192.168.254.103
   - platform: tplink
     name: Living Room Lamp
     host: 192.168.254.104
@@ -185,13 +200,13 @@ history_graph:
     entities:
       - sensor.bedroom_lamp_watts
       - sensor.living_room_lamp_watts
-    hours_to_show: 240
+    hours_to_show: 96
   gr2:
     name: Voltage Graph
     entities:
       - sensor.bedroom_lamp_volts
       - sensor.living_room_lamp_volts
-    hours_to_show: 240
+    hours_to_show: 96
   gr3:
     name: Home Temps
     entities:
@@ -200,7 +215,7 @@ history_graph:
      - sensor.home_temperature
      - sensor.living_room_temperature
      - sensor.master_bedroom_temperature
-    hours_to_show: 240
+    hours_to_show: 96
   gr4:
     name: Ecobee Presence
     entities:
@@ -208,7 +223,12 @@ history_graph:
      - binary_sensor.home_occupancy
      - binary_sensor.living_room_occupancy
      - binary_sensor.master_bedroom_occupancy
-    hours_to_show: 240
+    hours_to_show: 96
+  gr5:
+    name: 3D Printer Power
+    entities:
+      - sensor.printer_kw
+    hours_to_show: 48
 
 influxdb:
   host: 192.168.254.107
