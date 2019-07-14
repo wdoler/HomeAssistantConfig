@@ -4,11 +4,36 @@
 
 Note the "-d" which silences the output from all of the containers
  
-'docker-compose up -d'
+``` bash
+docker-compose up -d
+```
 
-## Removing unused docker networks
+Debugging a running container
+``` bash
+docker-compose exec <imageName> bash
+```
 
-'docker network prune'
+## Useful docker commands
+
+List running containers
+``` bash
+docker container list
+```
+
+List docker images
+``` bash
+docker images -a
+```
+
+Remove docker images
+``` bash
+docker rmi Image
+```
+
+Removing unused docker networks
+``` bash
+docker network prune
+```
 
 ## Update ip address with google domains
 ggdns.sh file contains the followig lines 
