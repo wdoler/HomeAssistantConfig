@@ -6,6 +6,7 @@
 !influxdb/*conf
 !travis/*
 !images/*
+!cncjs/.cncrc
 
 # NEVER COMMIT
 homeassistant/secrets.yaml

@@ -1,0 +1,159 @@
+{
+    "version": "1.9.16",
+    "state": {
+        "checkForUpdates": true,
+        "controller": {
+            "exception": {
+                "ignoreErrors": false
+            }
+        },
+        "session": {
+            "name": "",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IiIsIm5hbWUiOiIiLCJpYXQiOjE1NjI4OTU2MjMsImV4cCI6MTU2NTQ4NzYyM30.uMBtiF2GP1vGF0LZhGG-yqk8XLrP0AwRX9nHR-T7pk8",
+            "enabled": false
+        },
+        "workspace": {
+            "container": {
+                "default": {
+                    "widgets": [
+                        "visualizer"
+                    ]
+                },
+                "primary": {
+                    "show": true,
+                    "widgets": [
+                        "connection",
+                        "console",
+                        "grbl"
+                    ]
+                },
+                "secondary": {
+                    "show": true,
+                    "widgets": [
+                        "axes",
+                        "gcode",
+                        "macro",
+                        "probe",
+                        "spindle"
+                    ]
+                }
+            }
+        },
+        "widgets": {
+            "axes": {
+                "minimized": false,
+                "axes": [
+                    "x",
+                    "y",
+                    "z"
+                ],
+                "jog": {
+                    "keypad": false,
+                    "imperial": {
+                        "step": 16,
+                        "distances": []
+                    },
+                    "metric": {
+                        "step": 12,
+                        "distances": []
+                    }
+                },
+                "mdi": {
+                    "disabled": false
+                },
+                "shuttle": {
+                    "feedrateMin": 500,
+                    "feedrateMax": 2000,
+                    "hertz": 10,
+                    "overshoot": 1
+                }
+            },
+            "connection": {
+                "minimized": false,
+                "controller": {
+                    "type": "Grbl"
+                },
+                "port": "/dev/ttyACM0",
+                "baudrate": 115200,
+                "connection": {
+                    "type": "serial",
+                    "serial": {
+                        "rtscts": false
+                    }
+                },
+                "autoReconnect": false
+            },
+            "console": {
+                "minimized": false
+            },
+            "custom": {
+                "disabled": true,
+                "minimized": false,
+                "title": "",
+                "url": ""
+            },
+            "gcode": {
+                "minimized": false
+            },
+            "grbl": {
+                "minimized": false,
+                "panel": {
+                    "queueReports": {
+                        "expanded": true
+                    },
+                    "statusReports": {
+                        "expanded": true
+                    },
+                    "modalGroups": {
+                        "expanded": true
+                    }
+                }
+            },
+            "macro": {
+                "minimized": false
+            },
+            "probe": {
+                "minimized": false,
+                "probeCommand": "G38.2",
+                "useTLO": false,
+                "probeDepth": 10,
+                "probeFeedrate": 20,
+                "touchPlateHeight": 10,
+                "retractionDistance": 4
+            },
+            "spindle": {
+                "minimized": false,
+                "speed": 1000
+            },
+            "visualizer": {
+                "minimized": false,
+                "disabled": false,
+                "projection": "orthographic",
+                "cameraMode": "pan",
+                "gcode": {
+                    "displayName": true
+                },
+                "objects": {
+                    "coordinateSystem": {
+                        "visible": true
+                    },
+                    "gridLineNumbers": {
+                        "visible": true
+                    },
+                    "toolhead": {
+                        "visible": true
+                    }
+                }
+            }
+        }
+    },
+    "secret": "$2a$10$dTmviR6fWbn0A.dlRZXYvO",
+    "macros": [
+        {
+            "id": "519dc138-5955-442a-8001-71b2700b5081",
+            "mtime": 1563572439434,
+            "name": ".250 xyz probe",
+            "content": "G21\t                        ;make sure we’re in mm\nG91                         ;Incremental mode\nG38.2 Z-25 F75\t;Probe Z\nG10 L20 P1 Z22\t;Set Current Z as 22mm - thickness of your plateG\nG0 Z3                      ;lift Z 3mm\nG0 X-25                   ;Move left 25mm\nG0 Z-10\t                 ;Move down 10mm, should be 7mm below probe surface\nG38.2 X25 F75\t;Probe X to the right 25mm\nG10 L20 P1 X-10.175\t;Set current X location as negative half the bit diameter - 7mm thickness\nG0 X-10\t                ;Move left 10mm\nG0 Y-25\t                ;Move forward 25mm\nG90 G0 X5\t        ;Move to X5 (absolute) - will put you 5mm to the right of left edge of stock\nG91                         ;incremental\nG38.2 Y25 F75\t;Probe Y\nG10 L20 P1 Y-10.175\t;Set current Y location as negative half the bit diameter - 7mm thickness\nG0 Y-10\t                ;Move Y-10\nG0 Z10\t                ;Move Z up 10mm, should be 3mm above probe plate\nG90\nG0 X0Y0\t;Go to X0Y0"
+        }
+    ]
+}
