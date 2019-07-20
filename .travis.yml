@@ -3,8 +3,8 @@ python:
   - "3.5"
 before_install:
   - mv ./travis/travis_secrets.yaml ./homeassistant/secrets.yaml
-  - mv ./travis/fake_cert.txt /etc/letsencrypt/live/ha.wadeoler.com/cert.pem
-  - mv ./travis/fake_key.txt /etc/letsencrypt/live/ha.wadeoler.com/privkey.pem
+  # - mv ./travis/fake_cert.txt /etc/letsencrypt/live/travis/cert.pem
+  # - mv ./travis/fake_key.txt /etc/letsencrypt/live/travis/privkey.pem
 install:
   - pip3 install homeassistant
 script:
