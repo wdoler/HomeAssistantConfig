@@ -151,9 +151,15 @@
     "macros": [
         {
             "id": "519dc138-5955-442a-8001-71b2700b5081",
-            "mtime": 1563572439434,
-            "name": ".250 xyz probe",
-            "content": "G21\t                        ;make sure we’re in mm\nG91                         ;Incremental mode\nG38.2 Z-25 F75\t;Probe Z\nG10 L20 P1 Z22\t;Set Current Z as 22mm - thickness of your plateG\nG0 Z3                      ;lift Z 3mm\nG0 X-25                   ;Move left 25mm\nG0 Z-10\t                 ;Move down 10mm, should be 7mm below probe surface\nG38.2 X25 F75\t;Probe X to the right 25mm\nG10 L20 P1 X-10.175\t;Set current X location as negative half the bit diameter - 7mm thickness\nG0 X-10\t                ;Move left 10mm\nG0 Y-25\t                ;Move forward 25mm\nG90 G0 X5\t        ;Move to X5 (absolute) - will put you 5mm to the right of left edge of stock\nG91                         ;incremental\nG38.2 Y25 F75\t;Probe Y\nG10 L20 P1 Y-10.175\t;Set current Y location as negative half the bit diameter - 7mm thickness\nG0 Y-10\t                ;Move Y-10\nG0 Z10\t                ;Move Z up 10mm, should be 3mm above probe plate\nG90\nG0 X0Y0\t;Go to X0Y0"
+            "mtime": 1563588621155,
+            "name": "1/4 zxy probe",
+            "content": "G21\t                        ;make sure we’re in mm\nG91                         ;Incremental mode\nG38.2 Z-25 F75\t;Probe Z\nG10 L20 P1 Z22\t;Set Current Z as 22mm - thickness of your plateG\nG0 Z3                      ;lift Z 3mm\nG0 X-15                   ;Move left 15mm\nG0 Z-10\t                 ;Move down 10mm, should be 7mm below probe surface\nG38.2 X25 F75\t;Probe X to the right 25mm\nG10 L20 P1 X-10.175\t;Set current X location as negative half the bit diameter - 7mm thickness\nG0 X-10\t                ;Move left 10mm\nG0 Y-15\t                ;Move forward 25mm\nG90 G0 X5\t        ;Move to X5 (absolute) - will put you 5mm to the right of left edge of stock\nG91                         ;incremental\nG38.2 Y25 F75\t;Probe Y\nG10 L20 P1 Y-10.175\t;Set current Y location as negative half the bit diameter - 7mm thickness\nG0 Y-10\t                ;Move Y-10\nG0 Z17\t                ;Move Z up 17mm, should be 10mm above probe plate\nG90\nG0 X0Y0\t;Go to X0Y0"
+        },
+        {
+            "id": "3c30f2a6-b604-4bd2-b38e-06956e4fddf2",
+            "mtime": 1563588775711,
+            "name": "1/8 zxy probe",
+            "content": "G21\t                        ;make sure we’re in mm\nG91                         ;Incremental mode\nG38.2 Z-25 F75\t;Probe Z\nG10 L20 P1 Z22\t;Set Current Z as 22mm - thickness of your plateG\nG0 Z3                      ;lift Z 3mm\nG0 X-15                   ;Move left 15mm\nG0 Z-10\t                 ;Move down 10mm, should be 7mm below probe surface\nG38.2 X25 F75\t;Probe X to the right 25mm\nG10 L20 P1 X-8.5875\t;Set current X location as negative half the bit diameter - 7mm thickness\nG0 X-10\t                ;Move left 10mm\nG0 Y-15\t                ;Move forward 25mm\nG90 G0 X5\t        ;Move to X5 (absolute) - will put you 5mm to the right of left edge of stock\nG91                         ;incremental\nG38.2 Y25 F75\t;Probe Y\nG10 L20 P1 Y-8.5875\t;Set current Y location as negative half the bit diameter - 7mm thickness\nG0 Y-10\t                ;Move Y-10\nG0 Z17\t                ;Move Z up 17mm, should be 10mm above probe plate\nG90\nG0 X0Y0\t;Go to X0Y0"
         }
     ]
 }
