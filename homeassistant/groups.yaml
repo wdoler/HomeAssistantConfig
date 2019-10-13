@@ -8,9 +8,9 @@ Lights:
 - switch.porch_light
 - switch.office_light
 
-Chromecasts:
-- media_player.living_room
-- media_player.bedroom
+# Chromecasts:
+# - media_player.living_room
+# - media_player.bedroom
 
 Weather:
 - sensor.dark_sky_temperature
@@ -26,8 +26,8 @@ Weather:
 #- device_tracker.a8be275e1c9a
 #- device_tracker.24da9b1b62f2
 
-Switches:
-- sensor.mqtt_sensor
+# Switches:
+# - sensor.mqtt_sensor
 
 Bedroom Power Usage:
 - sensor.bedroom_lamp_amps
@@ -123,7 +123,7 @@ Printer View:
   view: yes
   name: 3D Printer
   entities:
-   - history_graph.3d_printer_power
-   - switch.prusa_printer
+   - history_graph.garage_printer_power
+   - switch.garage_printer
    - group.printer_power_usage
 

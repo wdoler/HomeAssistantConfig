@@ -22,9 +22,9 @@ config:
 http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret http_password
-  ssl_certificate: !secret sec_ssl_cert
-  ssl_key: !secret sec_ssl_key
-  base_url: !secret sec_base_url
+  # ssl_certificate: !secret sec_ssl_cert
+  # ssl_key: !secret sec_ssl_key
+  # base_url: !secret sec_base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -122,20 +122,20 @@ sensor:
         value_template: '{{ states.switch.living_room_lamp.attributes["current_a"] | replace(" A", "") | float }}'
         unit_of_measurement: 'A'
       printer_amps:
-        friendly_name: 'Current'
-        value_template: '{{ states.switch.prusa_printer.attributes["current_a"] | replace(" A", "") | float }}'
+        friendly_name_template: '{{ states.switch.garage_printer.name}} Current'
+        value_template: '{{ states.switch.garage_printer.attributes["current_a"] | float }}'
         unit_of_measurement: 'A'
       printer_watts:
-        friendly_name: 'Power'
-        value_template: '{{ states.switch.prusa_printer.attributes["current_power_w"] | replace(" W", "") | float }}'
+        friendly_name_template: "{{ states.switch.garage_printer.name}} Power"
+        value_template: '{{ states.switch.garage_printer.attributes["current_power_w"] | float }}'
         unit_of_measurement: 'W'
       printer_kw:
-        friendly_name: 'Daily Power'
-        value_template: '{{ states.switch.prusa_printer.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        friendly_name_template: "{{ states.switch.garage_printer.name}} Daily Power"
+        value_template: '{{ states.switch.garage_printer.attributes["total_energy_kwh"] | float }}'
         unit_of_measurement: 'kW'
       printer_volts:
-        friendly_name: 'Voltage'
-        value_template: '{{ states.switch.prusa_printer.attributes["voltage"] | replace(" V", "") | float}}'
+        friendly_name_template: "{{ states.switch.garage_printer.name}} Voltage"
+        value_template: '{{ states.switch.garage_printer.attributes["voltage"] | float}}'
         unit_of_measurement: 'V'
   - platform: time_date
     display_options:
@@ -170,22 +170,14 @@ mqtt:
 #    consider_home: 180
 #    track_new_devices: yes
 
-switch:
-  - platform: tplink
-    name: Bedroom Lamp
-    host: 192.168.254.100
-  - platform: tplink
-    name: Prusa Printer
-    host: 192.168.254.103
-  - platform: tplink
-    name: Living Room Lamp
-    host: 192.168.254.104
-  - platform: tplink
-    name: Porch Light
-    host: 192.168.254.101
-  - platform: tplink
-    name: Office Light
-    host: 192.168.254.102
+tplink:
+  discovery: false
+  switch:
+   - host: 192.168.254.100
+   - host: 192.168.254.101
+   - host: 192.168.254.102
+   - host: 192.168.254.103
+   - host: 192.168.254.104
 
 ecobee:
   api_key: !secret ecobee_api_key
@@ -225,7 +217,7 @@ history_graph:
      - binary_sensor.master_bedroom_occupancy
     hours_to_show: 96
   gr5:
-    name: 3D Printer Power
+    name: Garage Printer Power
     entities:
       - sensor.printer_kw
     hours_to_show: 48
