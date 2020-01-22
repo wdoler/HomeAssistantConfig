@@ -110,3 +110,41 @@ services:
       context: ./images/cncjs/
       dockerfile: /home/wdoler/Documents/docker/images/cncjs/Dockerfile-alternate
 
+  octoprint:
+    build: 
+      context: ./images/cncjs/
+      dockerfile: /home/wdoler/Documents/docker/images/octoprint/Dockerfile
+    image: octoprint/octoprint
+    container_name: octoprint
+    ports:
+      - 5000:5000
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - /home/wdoler/Documents/docker/octoprint:/home/octoprint/.octoprint
+
+  db:
+    image: mysql:5.7
+    volumes:
+     - /home/wdoler/Documents/docker/wordpress/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 194312a/
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: Thisismywppassword1
+
+  wordpress:
+    depends_on:
+     - db
+    image: wordpress:latest
+    ports:
+     - "3030:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: Thisismywppassword1
+      WORDPRESS_DB_NAME: wordpress
+volumes:
+  db_data: {}
