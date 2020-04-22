@@ -104,6 +104,8 @@ services:
       - /home/wdoler/Documents/docker/cncjs/:/root/:rw
     #priviledged is still needed to communicate via usb. without it you can see the port but not connect to it
     privileged: true  
+    group_add:
+      - dialout
     # fix for https://github.com/cncjs/cncjs/issues/489 as described in https://www.reddit.com/r/hobbycnc/comments/ccs9yz/cncjs_troubleshooting/?utm_source=share&utm_medium=web2x 
     # tldr: rebuild this version of cncjs with an alternate docker file that installs udev and recompiles electron
     build: 
@@ -116,13 +118,19 @@ services:
       dockerfile: /home/wdoler/Documents/docker/images/octoprint/Dockerfile
     image: octoprint/octoprint
     container_name: octoprint
+    group_add:
+      - video
+      - octoprint
+      - dialout
     ports:
       - 5000:5000
-    # devices:
-    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      # - /dev/video0:/dev/video0
+      # - /dev/video1:/dev/video1
     volumes:
       - /home/wdoler/Documents/docker/octoprint:/home/octoprint/.octoprint
-
+      - /hime/wdoler/Documents/docker/ffmpeg/ffserver.conf:/etc/ffserver.conf
   db:
     image: mysql:5.7
     volumes:

@@ -62,27 +62,19 @@ Home Occupancy:
 - binary_sensor.living_room_occupancy
 - binary_sensor.master_bedroom_occupancy
 
-Ecobee Graphs:
-- history_graph.ecobee_presence
-- history_graph.home_temps
+# Ecobee Graphs:
+# - history_graph.ecobee_presence
+# - history_graph.home_temps
 
-Ring Doorbell:
-- sensor.ring_front_door_battery
-- sensor.ring_front_door_last_activity
-- sensor.ring_front_door_last_ding
-- sensor.ring_front_door_last_motion
-- sensor.ring_front_door_volume
-- sensor.ring_front_door_wifi_signal_category
-- sensor.ring_front_door_wifi_signal_strength
 
-Nest Protect:
-- binary_sensor.living_room_nest_protect_online
-- sensor.living_room_nest_protect_battery_health
-- sensor.living_room_nest_protect_co_status
-- sensor.living_room_nest_protect_color_status
-- sensor.living_room_nest_protect_smoke_status
-- sensor.home_eta
-- binary_sensor.home_away
+# Nest Protect:
+# - binary_sensor.living_room_nest_protect_online
+# - sensor.living_room_nest_protect_battery_health
+# - sensor.living_room_nest_protect_co_status
+# - sensor.living_room_nest_protect_color_status
+# - sensor.living_room_nest_protect_smoke_status
+# - sensor.home_eta
+# - binary_sensor.home_away
 
 #default_view:
 #  view: yes
@@ -95,35 +87,29 @@ Nest Protect:
 #   - group.home_temps
 #   - group.ecobee_presence
 
-Ring View:
-  view: yes
-  name: Ring
-  entities:
-   - group.ring_doorbell
-   - camera.front_door
 
-Ecobee View:
-  view: yes
-  name: Ecobee
-  entities:
-   - group.home_humidity
-   - group.home_temps
-   - climate.home
-   - group.ecobee_graphs
+# Ecobee View:
+#   view: yes
+#   name: Ecobee
+#   entities:
+#    - group.home_humidity
+#    - group.home_temps
+#    - climate.home
+#    - group.ecobee_graphs
 
-Data View:
-  view: yes
-  name: Data
-  entities:
-   - history_graph.lights_power_consumption
-   - history_graph.voltage_graph
-   - group.ecobee_graphs
+# Data View:
+#   view: yes
+#   name: Data
+#   entities:
+#    - history_graph.lights_power_consumption
+#    - history_graph.voltage_graph
+#    - group.ecobee_graphs
 
-Printer View:
-  view: yes
-  name: 3D Printer
-  entities:
-   - history_graph.garage_printer_power
-   - switch.garage_printer
-   - group.printer_power_usage
+# Printer View:
+#   view: yes
+#   name: 3D Printer
+#   entities:
+#    - history_graph.garage_printer_power
+#    - switch.garage_printer
+#    - group.printer_power_usage
 
