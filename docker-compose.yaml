@@ -33,14 +33,10 @@ services:
     container_name: homeassistant
     image: homeassistant/home-assistant:stable
     network_mode: "host"
-    # ports:
-    #   - 8123:8123
-    #   - 443:443
 #      - 80:80
     volumes:
       - /home/wdoler/Documents/docker/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-      # - /etc/letsencrypt:/etc/letsencrypt
     restart: on-failure
     # depends_on:
     #   influxdb:
