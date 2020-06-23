@@ -1,0 +1,14 @@
+FROM octoprint/octoprint
+
+VOLUME /home/octoprint/.octoprint
+USER octoprint
+# RUN which virtualenv
+# RUN virtualenv venv
+RUN /opt/venv/bin/python -m pip --disable-pip-version-check install https://github.com/amsbr/OctoPrint-Stats/archive/master.zip --no-cache-dir
+RUN /opt/venv/bin/python -m pip --disable-pip-version-check install https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/archive/master.zip --no-cache-dir
+RUN /opt/venv/bin/python -m pip --disable-pip-version-check install https://github.com/Renaud11232/OctoPrint-Resource-Monitor/archive/master.zip --no-cache-dir
+#RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/FormerLurker/Octolapse/archive/v0.3.4.zip --no-cache-dir
+#RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/FormerLurker/Octolapse/archive/rc/devel.zip --no-cache-dir
+
+
+CMD ["/opt/venv/bin/octoprint", "serve"]

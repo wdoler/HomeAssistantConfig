@@ -13,6 +13,10 @@ Debugging a running container
 docker-compose exec <imageName> bash
 ```
 
+List Running containers
+``` bash
+docker-compose ps
+```
 ## Useful docker commands
 
 List running containers

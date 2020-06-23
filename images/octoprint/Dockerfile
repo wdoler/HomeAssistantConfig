@@ -44,5 +44,10 @@ RUN git clone --branch $tag https://github.com/foosel/OctoPrint.git /opt/octopri
 
 VOLUME /home/octoprint/.octoprint
 
+RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/amsbr/OctoPrint-Stats/archive/master.zip --no-cache-dir
+RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/jneilliii/OctoPrint-TPLinkSmartplug/archive/master.zip --no-cache-dir
+#RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/FormerLurker/Octolapse/archive/v0.3.4.zip --no-cache-dir
+#RUN /opt/octoprint/venv/bin/python -m pip --disable-pip-version-check install https://github.com/FormerLurker/Octolapse/archive/rc/devel.zip --no-cache-dir
+
 
 CMD ["/opt/octoprint/venv/bin/octoprint", "serve"]

@@ -19,9 +19,9 @@ frontend:
 # Enables configuration UI
 config:
 
-http:
+#http:
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
+  #api_password: !secret http_password
   # ssl_certificate: !secret sec_ssl_cert
   # ssl_key: !secret sec_ssl_key
   # base_url: !secret sec_base_url
@@ -55,17 +55,13 @@ map:
 # Track the sun
 sun:
 
-# Ring Doorbell
-ring:
-  username: !secret ring_username
-  password: !secret ring_password
-
-nest:
-  client_id: !secret nest_clientid
-  client_secret: !secret nest_clientsecret
+# nest:
+#   client_id: !secret nest_clientid
+#   client_secret: !secret nest_clientsecret
 
 octoprint:
-  host: 192.168.254.107
+  host: 192.168.254.105
+  port: 5000
   api_key: !secret octoprint_api_key
   name: Prusa i3 Hephestos
   number_of_tools: 1
@@ -141,9 +137,8 @@ sensor:
     display_options:
       - 'time'
       - 'date'
-  - platform: ring
-  - platform: mqtt
-    state_topic: "octoprint/#"
+  # - platform: mqtt
+  #   state_topic: "octoprint/#"
   - platform: octoprint
 
 # Text to speech
@@ -151,99 +146,50 @@ tts:
   - platform: google_translate
     service_name: google_say
 
-mqtt:
-  broker: 192.168.254.107
-  port: 1883
-#  client_id: home-assistant-1
-  birth_message:
-    topic: 'hass/status'
-    payload: 'online'
-  will_message:
-    topic: 'hass/status'
-    payload: 'offline'
-
-#device_tracker:
-#  - platform: tplink
-#    host: 192.168.0.1
-#    username: !secret router_username
-#    password: !secret router_password
-#    consider_home: 180
-#    track_new_devices: yes
+# mqtt:
+#   broker: 192.168.254.105
+#   port: 1883
+#   birth_message:
+#     topic: 'hass/status'
+#     payload: 'online'
+#   will_message:
+#     topic: 'hass/status'
+#     payload: 'offline'
 
 tplink:
-  discovery: false
-  switch:
-   - host: 192.168.254.100
-   - host: 192.168.254.101
-   - host: 192.168.254.102
-   - host: 192.168.254.103
-   - host: 192.168.254.104
 
 ecobee:
   api_key: !secret ecobee_api_key
-  hold_temp: False
 
-camera:
-  - platform: ring
-
-history_graph:
-  gr1:
-    name: Lights Power Consumption
-    entities:
-      - sensor.bedroom_lamp_watts
-      - sensor.living_room_lamp_watts
-    hours_to_show: 96
-  gr2:
-    name: Voltage Graph
-    entities:
-      - sensor.bedroom_lamp_volts
-      - sensor.living_room_lamp_volts
-    hours_to_show: 96
-  gr3:
-    name: Home Temps
-    entities:
-     - group.home_occupancy
-     - sensor.guest_bedroom_temperature
-     - sensor.home_temperature
-     - sensor.living_room_temperature
-     - sensor.master_bedroom_temperature
-    hours_to_show: 96
-  gr4:
-    name: Ecobee Presence
-    entities:
-     - binary_sensor.guest_bedroom_occupancy
-     - binary_sensor.home_occupancy
-     - binary_sensor.living_room_occupancy
-     - binary_sensor.master_bedroom_occupancy
-    hours_to_show: 96
-  gr5:
-    name: Garage Printer Power
-    entities:
-      - sensor.printer_kw
-    hours_to_show: 48
-
-influxdb:
-  host: 192.168.254.107
-  port: 8086
-  database: homeassistant
-  default_measurement: state
-#  exclude:
-#    entities:
-#     - sensor.dark_sky_temperature
-  include:
-    domains:
-     - sensor
-     - binary_sensor
-     - climate
-#    entities:
-#     - sensor.dark_sky_temperature
-#     - sensor.guest_bedroom_temperature
-#     - sensor.home_temperature
-#     - sensor.living_room_temperature
-#     - sensor.master_bedroom_temperature
+# influxdb:
+#   host: 192.168.254.107
+#   port: 8086
+#   database: homeassistant
+#   default_measurement: state
+# #  exclude:
+# #    entities:
+# #     - sensor.dark_sky_temperature
+#   include:
+#     domains:
+#      - sensor
+#      - binary_sensor
+#      - climate
+  #  entities:
+  #   - sensor.dark_sky_temperature
+  #   - sensor.guest_bedroom_temperature
+  #   - sensor.home_temperature
+  #   - sensor.living_room_temperature
+  #   - sensor.master_bedroom_temperature
 
 # Cloud
-#cloud:
+cloud:
+
+system_health:
+
+camera:
+  - platform: local_file
+    file_path: /home/homeassistant/.homeassistant/images/mail_and_packages/mail_today.gif
+    name: mail_usps
 
 group: !include groups.yaml
 automation: !include automations.yaml
